@@ -1,19 +1,84 @@
+Natürlich! Ich kann dir ein Beispiel für eine vollständige `index.html`-Datei geben, die eine interaktive Karte mit Leaflet enthält. Bitte beachte, dass die Koordinaten für die Polygone in diesem Beispiel fiktiv sind. Du musst die genauen Koordinaten für die gewünschten Regionen recherchieren und ersetzen.
+
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webportal für Archivalien</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Leaflet CSS einbinden -->
+    <title>Nordic Archive Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+    </style>
 </head>
 <body>
-    <h1>Interaktive Karte der Verwaltungseinheiten</h1>
-    <!-- Container für die Karte -->
-    <div id="map" style="height: 600px;"></div>
-    <!-- Leaflet JS einbinden -->
+    <h1>Willkommen zur Nordic Archive Map</h1>
+    <div id="map"></div>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Karte initialisieren
+        var map = L.map('map').setView([67.5, 15], 4); // Zentrum und Zoomstufe
+
+        // OpenStreetMap Layer hinzufügen
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Beispiel für ein Polygon (z.B. für Västerbotten)
+        var vasterbottenCoords = [
+            [64.5, 18.5], [65.0, 19.0], [65.5, 18.5], [65.0, 18.0]
+        ];
+
+        var vasterbottenPolygon = L.polygon(vasterbottenCoords, {
+            color: 'blue',
+            fillColor: '#3388ff',
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        vasterbottenPolygon.on('click', function() {
+            window.location.href = 'https://sok.riksarkivet.se/?Sokord=V%C3%A4sterbotten&f=True&EndastDigitaliserat=false&Fritext=V%C3%A4sterbotten&Namn=&Ort=&DatumFran=1500&DatumTill=1800&AvanceradSok=true';
+        });
+
+        // Beispiel für ein weiteres Polygon (z.B. für Kainuu)
+        var kainuuCoords = [
+            [64.0, 27.0], [64.5, 27.5], [64.0, 28.0], [63.5, 27.5]
+        ];
+
+        var kainuuPolygon = L.polygon(kainuuCoords, {
+            color: 'green',
+            fillColor: '#33ff88',
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        kainuuPolygon.on('click', function() {
+            window.location.href = 'https://astia.narc.fi/uusiastia/aineistot.html?haku={%22searchTarget%22:%22aineisto%22,%22searchString%22:%22Kainuu%22,%22actor%22:%22%22,%22startDate%22:%22%22,%22endDate%22:%22%22,%22notString%22:%22%22,%22aineistoTaso%22:%22%22,%22aineistoType%22:%22%22,%22toimijaType%22:%22%22,%22place%22:%22%22,%22accessRestrict%22:%22all%22}';
+        });
+
+        // Beispiel für ein weiteres Polygon (z.B. für Finnmark)
+        var finnmarkCoords = [
+            [70.0, 24.0], [70.5, 25.0], [70.0, 26.0], [69.5, 25.0]
+        ];
+
+        var finnmarkPolygon = L.polygon(finnmarkCoords, {
+            color: 'red',
+            fillColor: '#ff3333',
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        finnmarkPolygon.on('click', function() {
+            window.location.href = 'https://media.digitalarkivet.no/db/browse?archive_key=&start_year=1500&end_year=1800&text=Finnmark';
+        });
+
+        // Weitere Polygone für andere Regionen hier hinzufügen...
+    </script>
 </body>
 </html>
+```
+
+### Hinweise:
+
+- **Koordinaten:** Die Koordinaten für die Polygone sind nur Beispiele. Du musst die tatsächlichen Koordinaten für die Regionen, die du darstellen möchtest, recherchieren und verwenden.
+- **Klick-Events:** Die Klick
